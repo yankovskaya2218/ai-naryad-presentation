@@ -110,6 +110,12 @@
   .chip.neutral{ background:#fff; color:var(--muted); border:1.5px solid var(--hair); }
   .expl{ font-size:18px; color:var(--ink); line-height:1.45; margin-top:auto; }
 
+  /* Cards selection (рабочий слайд для отбора) */
+  .cards.sel{ grid-template-columns:repeat(2,1fr); gap:26px; margin-top:34px; }
+  .cards.sel .card{ min-height:0; padding:28px; gap:12px; }
+  .cards.sel .val{ font-size:18px; }
+  .cards.sel .expl{ font-size:16px; }
+
   /* Compare (разграничение) */
   .compare{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:50px; }
   .ccol{ border-radius:20px; padding:42px; }
@@ -141,6 +147,18 @@
 
   .contacts{ margin-top:auto; padding-top:36px; border-top:1px solid var(--hair); font-size:var(--body); color:var(--muted); }
   .contacts b{ font-weight:600; color:var(--ink); }
+
+  /* Печать в PDF: все слайды как страницы */
+  @media print{
+    @page{ size:20in 11.25in; margin:0; }
+    html,body{ overflow:visible !important; background:#fff !important; height:auto !important; }
+    #scaler{ position:static !important; display:block !important; }
+    #stage{ transform:none !important; position:static !important; width:1920px !important; height:auto !important; }
+    .slide{ position:relative !important; inset:auto !important; opacity:1 !important; visibility:visible !important; width:1920px !important; height:1080px !important; page-break-after:always; break-after:page; overflow:hidden; }
+    .slide:last-child{ page-break-after:auto; break-after:auto; }
+    .slide .reveal{ animation:none !important; opacity:1 !important; transform:none !important; }
+    .progress{ display:none !important; }
+  }
 </style>
 </head>
 <body>
@@ -220,6 +238,45 @@
           <div class="row"><div class="lbl">Работы</div><div class="val">Колодки + заменён изношенный пыльник, выявленный при&nbsp;ремонте</div></div>
           <div class="chip neutral">Допустимая доп. работа</div>
           <div class="expl">Доп. работа обоснована, механизм не&nbsp;помечает её&nbsp;как нарушение.</div>
+        </div>
+      </div>
+      <div class="note reveal" style="margin-top:28px; font-size:17px;">Карточки - результаты с&nbsp;демо, значения иллюстративные.</div>
+    </div>
+  </section>
+
+  <!-- 4б. Варианты нестыковок (рабочий слайд для отбора) -->
+  <section class="slide">
+    <div class="content">
+      <div class="kicker reveal">Для отбора · рабочий слайд</div>
+      <h1 class="reveal" style="font-size:60px;">Варианты карточки-нестыковки</h1>
+      <div class="cards sel reveal">
+        <div class="card bad">
+          <div class="top"><span class="badge bad">Нестыковка</span><span class="conf">демо · 96%</span></div>
+          <div class="row"><div class="lbl">Жалоба</div><div class="val">Горит ABS, скрежет при&nbsp;торможении</div></div>
+          <div class="row"><div class="lbl">Работы</div><div class="val">Замена тормозных колодок и&nbsp;дисков</div></div>
+          <div class="chip bad">Критичная жалоба не&nbsp;закрыта</div>
+          <div class="expl">Спорный: замена колодок и&nbsp;дисков могла погасить и&nbsp;скрежет, и&nbsp;лампу ABS.</div>
+        </div>
+        <div class="card bad">
+          <div class="top"><span class="badge bad">Нестыковка</span><span class="conf">демо · 95%</span></div>
+          <div class="row"><div class="lbl">Жалоба</div><div class="val">Течь масла двигателя</div></div>
+          <div class="row"><div class="lbl">Работы</div><div class="val">Замена масла и&nbsp;фильтра</div></div>
+          <div class="chip bad">Жалоба не&nbsp;устранена</div>
+          <div class="expl">Масло поменяли, но причину течи не&nbsp;нашли и&nbsp;не&nbsp;устранили.</div>
+        </div>
+        <div class="card bad">
+          <div class="top"><span class="badge bad">Нестыковка</span><span class="conf">демо · 97%</span></div>
+          <div class="row"><div class="lbl">Жалоба</div><div class="val">Перегрев, уходит антифриз</div></div>
+          <div class="row"><div class="lbl">Работы</div><div class="val">Диагностика, замена воздушного фильтра</div></div>
+          <div class="chip bad">Критичная жалоба не&nbsp;закрыта</div>
+          <div class="expl">Систему охлаждения не&nbsp;ремонтировали.</div>
+        </div>
+        <div class="card bad">
+          <div class="top"><span class="badge bad">Нестыковка</span><span class="conf">демо · 93%</span></div>
+          <div class="row"><div class="lbl">Жалоба</div><div class="val">Стук в&nbsp;передней подвеске на&nbsp;неровностях</div></div>
+          <div class="row"><div class="lbl">Работы</div><div class="val">Развал-схождение и&nbsp;ТО</div></div>
+          <div class="chip bad">Причина стука не&nbsp;устранена</div>
+          <div class="expl">Углы выставили, но стучащий элемент не&nbsp;диагностировали и&nbsp;не&nbsp;заменили.</div>
         </div>
       </div>
     </div>
