@@ -9,137 +9,88 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Type scale (по гайду QSOFT) */
-    --h1: 90px;
-    --point: 40px;
-    --subtitle: 26px;
-    --body: 20px;
-    --pad: 60px;
-
-    /* Neutrals, подкрашены в синий */
+    --h1: 90px; --point: 40px; --subtitle: 26px; --body: 20px; --pad: 60px;
     --bg-stage: #0d1018;
     --slide: #fbfbfd;
     --ink: #161a23;
     --muted: #5b6275;
     --hair: #e4e7ef;
-
-    /* Accent */
     --accent: #2b4dd4;
     --accent-soft: #e9edfb;
-
-    /* Verdict */
-    --ok: #1e9e6a;       --ok-soft: #e6f4ee;
-    --bad: #d6453f;      --bad-soft: #fbeae9;
-    --warn: #c2891c;     --warn-soft: #f7efdb;
+    --ok: #1e9e6a; --ok-soft: #e6f4ee;
+    --bad: #d6453f; --bad-soft: #fbeae9;
+    --warn: #c2891c; --warn-soft: #f7efdb;
   }
-
   *{ margin:0; padding:0; box-sizing:border-box; }
-
   html,body{ height:100%; }
   body{
-    font-family:'Manrope', sans-serif;
-    background:var(--bg-stage);
-    color:var(--ink);
-    overflow:hidden;
-    font-weight:400;
-    -webkit-font-smoothing:antialiased;
+    font-family:'Manrope', sans-serif; background:var(--bg-stage); color:var(--ink);
+    overflow:hidden; font-weight:400; -webkit-font-smoothing:antialiased;
   }
-
-  /* Stage 1920x1080, масштабируется под окно */
-  #scaler{
-    position:fixed; inset:0;
-    display:flex; align-items:center; justify-content:center;
-  }
-  #stage{
-    width:1920px; height:1080px;
-    position:relative;
-    transform-origin:center center;
-    flex:0 0 auto;
-  }
+  #scaler{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; }
+  #stage{ width:1920px; height:1080px; position:relative; transform-origin:center center; flex:0 0 auto; }
 
   .slide{
-    position:absolute; inset:0;
-    background:var(--slide);
-    padding:var(--pad);
-    display:flex; flex-direction:column;
-    opacity:0; visibility:hidden;
+    position:absolute; inset:0; background:var(--slide); padding:var(--pad);
+    display:flex; flex-direction:column; opacity:0; visibility:hidden;
     transition:opacity .45s cubic-bezier(.2,.7,.2,1);
   }
   .slide.active{ opacity:1; visibility:visible; }
 
-  /* Slide chrome */
-  .chrome{
-    position:absolute; left:var(--pad); right:var(--pad);
-    display:flex; justify-content:space-between; align-items:center;
-    font-size:16px; color:var(--muted); letter-spacing:.04em;
-  }
-  .chrome.top{ top:36px; }
+  .chrome{ position:absolute; left:var(--pad); right:var(--pad); display:flex; justify-content:space-between; align-items:center; font-size:16px; color:var(--muted); letter-spacing:.04em; }
   .chrome.bot{ bottom:36px; }
   .chrome .brand{ text-transform:uppercase; }
-  .progress{
-    position:absolute; top:0; left:0; height:4px;
-    background:var(--accent); transition:width .45s ease;
-  }
+  .progress{ position:absolute; top:0; left:0; height:4px; background:var(--accent); transition:width .45s ease; }
 
-  /* Reveal animation */
   .slide.active .reveal{ animation:rise .55s cubic-bezier(.2,.7,.2,1) both; }
   .slide.active .reveal:nth-child(2){ animation-delay:.06s; }
   .slide.active .reveal:nth-child(3){ animation-delay:.12s; }
   .slide.active .reveal:nth-child(4){ animation-delay:.18s; }
   @keyframes rise{ from{ opacity:0; transform:translateY(18px);} to{ opacity:1; transform:none;} }
 
-  /* Typography */
-  .kicker{
-    font-size:var(--body); color:var(--accent);
-    text-transform:uppercase; letter-spacing:.14em; margin-bottom:26px;
-  }
-  h1{
-    font-size:var(--h1); font-weight:600; line-height:1.04;
-    letter-spacing:-.02em; max-width:1500px;
-  }
-  .subtitle{ font-size:var(--subtitle); color:var(--muted); line-height:1.4; max-width:1180px; }
+  .kicker{ font-size:var(--body); color:var(--accent); text-transform:uppercase; letter-spacing:.14em; margin-bottom:26px; }
+  h1{ font-size:var(--h1); font-weight:600; line-height:1.04; letter-spacing:-.02em; max-width:1500px; }
+  .subtitle{ font-size:var(--subtitle); color:var(--muted); line-height:1.4; max-width:1300px; }
   .body{ font-size:var(--body); line-height:1.5; }
 
   .content{ flex:1; display:flex; flex-direction:column; justify-content:center; }
   .content.cols{ flex-direction:row; gap:80px; align-items:center; }
   .col{ flex:1; }
 
-  /* Bullet list (supporting) */
   .pts{ list-style:none; display:flex; flex-direction:column; gap:26px; margin-top:48px; max-width:1300px; }
   .pts li{ font-size:var(--body); line-height:1.45; padding-left:34px; position:relative; color:var(--ink); }
-  .pts li::before{
-    content:""; position:absolute; left:0; top:11px;
-    width:12px; height:12px; background:var(--accent);
-  }
+  .pts li::before{ content:""; position:absolute; left:0; top:11px; width:12px; height:12px; background:var(--accent); }
 
-  /* Point-heading grid (40px) */
   .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:56px 80px; margin-top:54px; }
   .ph .h{ font-size:var(--point); font-weight:600; line-height:1.12; letter-spacing:-.01em; }
   .ph .d{ font-size:var(--body); color:var(--muted); line-height:1.45; margin-top:14px; max-width:560px; }
 
-  /* Two-col simple list */
   .listgrid{ display:grid; grid-template-columns:1fr 1fr; gap:40px 80px; margin-top:44px; }
   .item .lead{ font-size:var(--subtitle); font-weight:600; line-height:1.25; }
   .item .sub{ font-size:var(--body); color:var(--muted); line-height:1.45; margin-top:10px; }
   .item{ padding-top:24px; border-top:1px solid var(--hair); }
 
-  /* Numbered steps */
   .steps{ display:flex; flex-direction:column; gap:34px; margin-top:50px; max-width:1300px; }
   .step{ display:flex; gap:30px; align-items:baseline; }
   .step .n{ font-size:var(--point); font-weight:600; color:var(--accent); line-height:1; min-width:64px; }
   .step .t{ font-size:var(--subtitle); line-height:1.35; }
 
-  /* Flow diagram */
-  .flow{ display:flex; align-items:stretch; gap:0; }
-  .node{
-    background:#fff; border:1.5px solid var(--hair); border-radius:18px;
-    padding:34px 34px; display:flex; flex-direction:column; justify-content:center;
-    min-height:150px; flex:1;
-  }
+  /* Flow */
+  .flow{ display:flex; align-items:stretch; }
+  .node{ background:#fff; border:1.5px solid var(--hair); border-radius:18px; padding:34px; display:flex; flex-direction:column; justify-content:center; min-height:150px; flex:1; }
   .node .nh{ font-size:var(--subtitle); font-weight:600; line-height:1.2; }
   .node .nd{ font-size:18px; color:var(--muted); margin-top:12px; line-height:1.4; }
   .node.accent{ background:var(--accent-soft); border-color:#cdd7f6; }
-  .arrow{ display:flex; align-items:center; padding:0 22px; color:var(--accent); font-size:34px; }
+  .node.store{ background:var(--ok-soft); border-color:#bfe6d4; }
+  .arrow{ display:flex; align-items:center; justify-content:center; padding:0 22px; color:var(--accent); font-size:34px; }
+
+  /* Detailed schema */
+  .schema{ margin-top:50px; }
+  .feedwrap{ margin-top:30px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .feedlabel{ font-size:18px; color:var(--muted); }
+  .updown{ color:var(--accent); font-size:30px; line-height:1; }
+  .feeds{ display:flex; gap:36px; }
+  .feeds .node{ min-width:520px; }
 
   /* Verdict cards */
   .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:50px; }
@@ -151,7 +102,6 @@
   .badge.bad{ background:var(--bad); }
   .badge.ok{ background:var(--ok); }
   .conf{ font-size:18px; color:var(--muted); }
-  .row{ }
   .row .lbl{ font-size:15px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
   .row .val{ font-size:var(--body); line-height:1.4; margin-top:6px; }
   .chip{ align-self:flex-start; font-size:18px; font-weight:600; padding:9px 18px; border-radius:10px; }
@@ -160,6 +110,19 @@
   .chip.neutral{ background:#fff; color:var(--muted); border:1.5px solid var(--hair); }
   .expl{ font-size:18px; color:var(--ink); line-height:1.45; margin-top:auto; }
 
+  /* Compare (разграничение) */
+  .compare{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:50px; }
+  .ccol{ border-radius:20px; padding:42px; }
+  .ccol.rules{ background:#f2f3f6; border:1.5px solid var(--hair); }
+  .ccol.ours{ background:var(--accent-soft); border:1.5px solid #cdd7f6; }
+  .ccol .ch{ font-size:var(--subtitle); font-weight:600; margin-bottom:28px; }
+  .ccol ul{ list-style:none; display:flex; flex-direction:column; gap:20px; }
+  .ccol li{ font-size:var(--body); line-height:1.4; padding-left:30px; position:relative; }
+  .ccol li::before{ content:""; position:absolute; left:0; top:9px; width:11px; height:11px; }
+  .ccol.rules li::before{ background:var(--muted); }
+  .ccol.ours li::before{ background:var(--accent); }
+  .ccol .foot{ font-size:17px; color:var(--muted); margin-top:30px; padding-top:22px; border-top:1px solid rgba(20,23,35,.10); line-height:1.4; }
+
   /* Variants (вторичный блок) */
   .variants{ margin-top:64px; padding-top:34px; border-top:1px solid var(--hair); opacity:.62; }
   .vlabel{ font-size:18px; color:var(--muted); margin-bottom:22px; }
@@ -167,11 +130,8 @@
   .vitem{ font-size:18px; color:var(--muted); line-height:1.45; max-width:540px; }
   .vitem .vh{ font-weight:600; color:var(--ink); }
 
-  /* CTA */
-  .cta{ font-size:var(--point); font-weight:600; color:var(--accent); margin-top:46px; }
   .note{ font-size:var(--body); color:var(--muted); margin-top:24px; max-width:1100px; line-height:1.45; }
 
-  /* Cover */
   .cover{ height:100%; display:flex; flex-direction:column; justify-content:center; }
   .cover h1{ font-size:128px; letter-spacing:-.03em; }
   .cover .sub{ font-size:var(--subtitle); color:var(--muted); max-width:1100px; margin-top:34px; line-height:1.4; }
@@ -179,7 +139,6 @@
   .cover-foot{ position:absolute; bottom:var(--pad); left:var(--pad); font-size:var(--body); color:var(--muted); }
   .accentbar{ width:90px; height:8px; background:var(--accent); margin:40px 0 0; }
 
-  /* Why-us / contacts */
   .contacts{ margin-top:auto; padding-top:36px; border-top:1px solid var(--hair); font-size:var(--body); color:var(--muted); }
   .contacts b{ font-weight:600; color:var(--ink); }
 </style>
@@ -188,23 +147,23 @@
 <div id="scaler"><div id="stage">
 
   <!-- 1. Обложка -->
-  <section class="slide" data-i="1">
+  <section class="slide">
     <div class="cover">
       <div class="cover-tag reveal">QSOFT · AI для автоотрасли</div>
       <h1 class="reveal" style="margin-top:30px;">AI-анализ<br>заказ-нарядов</h1>
       <div class="accentbar reveal"></div>
-      <div class="sub reveal">Автоматически проверяем логику наряда: сходятся&nbsp;ли между собой жалоба клиента, выполненные работы и&nbsp;списанные запчасти.</div>
+      <div class="sub reveal">Автоматически проверяем логику наряда: сходятся&nbsp;ли между собой жалоба клиента, выполненные работы и&nbsp;заменённые детали.</div>
     </div>
     <div class="cover-foot">Контроль качества и&nbsp;гарантийных списаний в&nbsp;сервисной сети</div>
   </section>
 
   <!-- 2. Зачем -->
-  <section class="slide" data-i="2">
+  <section class="slide">
     <div class="content">
       <div class="kicker reveal">Зачем анализировать наряды</div>
       <h1 class="reveal">Системный анализ заказ-нарядов позволит находить несоответствия и&nbsp;усилить контроль качества сети</h1>
       <ul class="pts reveal">
-        <li>В&nbsp;заказ-наряде сходятся жалоба клиента, выполненные работы и&nbsp;списанные запчасти - по&nbsp;нему видно, как отработал дилер</li>
+        <li>В&nbsp;заказ-наряде сходятся жалоба клиента, выполненные работы и&nbsp;заменённые детали - по&nbsp;нему видно, как отработал дилер</li>
         <li>Несоответствия между этими данными - сигнал к&nbsp;качеству работ и&nbsp;обоснованности списаний</li>
         <li>Сегодня наряды по&nbsp;сети проверяют выборочно, и&nbsp;несоответствия на&nbsp;потоке не&nbsp;находят</li>
       </ul>
@@ -212,7 +171,7 @@
   </section>
 
   <!-- 3. Что предлагаем -->
-  <section class="slide" data-i="3">
+  <section class="slide">
     <div class="content cols">
       <div class="col">
         <div class="kicker reveal">Что предлагаем</div>
@@ -224,11 +183,11 @@
         </ul>
       </div>
       <div class="col reveal">
-        <div class="flow" style="flex-direction:column; gap:0;">
+        <div class="flow" style="flex-direction:column;">
           <div class="node"><div class="nh">Заказ-наряд</div><div class="nd">жалоба · работы · запчасти</div></div>
-          <div class="arrow" style="justify-content:center; transform:rotate(90deg); height:54px;">→</div>
+          <div class="arrow" style="transform:rotate(90deg); height:54px;">→</div>
           <div class="node accent"><div class="nh">Проверка по&nbsp;вашим нормам</div><div class="nd">сверка связок между собой</div></div>
-          <div class="arrow" style="justify-content:center; transform:rotate(90deg); height:54px;">→</div>
+          <div class="arrow" style="transform:rotate(90deg); height:54px;">→</div>
           <div class="node"><div class="nh">Вердикт</div><div class="nd">сходится · нестыковка · на&nbsp;проверку</div></div>
         </div>
       </div>
@@ -236,9 +195,9 @@
   </section>
 
   <!-- 4. Вердикт по каждому наряду -->
-  <section class="slide" data-i="4">
+  <section class="slide">
     <div class="content">
-      <div class="kicker reveal">Что на&nbsp;выходе</div>
+      <div class="kicker reveal">Результат анализа</div>
       <h1 class="reveal">Вердикт по&nbsp;каждому наряду</h1>
       <div class="cards reveal">
         <div class="card bad">
@@ -267,7 +226,7 @@
   </section>
 
   <!-- 5. Какие нестыковки ловит -->
-  <section class="slide" data-i="5">
+  <section class="slide">
     <div class="content">
       <div class="kicker reveal">Что находит</div>
       <h1 class="reveal">Какие нестыковки ловит</h1>
@@ -282,11 +241,11 @@
     </div>
   </section>
 
-  <!-- 6. Как это работает -->
-  <section class="slide" data-i="6">
+  <!-- 6. Как это работает (простой поток) -->
+  <section class="slide">
     <div class="content">
       <div class="kicker reveal">Как это работает</div>
-      <h1 class="reveal">Наряды уходят из&nbsp;вашей системы и&nbsp;возвращаются с&nbsp;вердиктом</h1>
+      <h1 class="reveal">Обрабатываем наряды из&nbsp;вашей системы и&nbsp;возвращаем вердикт в&nbsp;неё</h1>
       <div class="flow reveal" style="margin-top:60px;">
         <div class="node"><div class="nh">Ваша система</div><div class="nd">выгрузка нарядов</div></div>
         <div class="arrow">→</div>
@@ -298,22 +257,76 @@
     </div>
   </section>
 
-  <!-- 7. Какие проблемы бизнеса решает -->
-  <section class="slide" data-i="7">
+  <!-- 7. Как это работает (схема со справочником) -->
+  <section class="slide">
     <div class="content">
-      <div class="kicker reveal">Ценность</div>
-      <h1 class="reveal">Какие проблемы бизнеса это может решить</h1>
-      <div class="grid2 reveal">
-        <div class="ph"><div class="h">Контроль успевает за&nbsp;потоком</div><div class="d">Менеджер работает только с&nbsp;подсвеченными нарядами, не&nbsp;читает поток вручную</div></div>
-        <div class="ph"><div class="h">Спорные списания видны заранее</div><div class="d">До&nbsp;согласования с&nbsp;дилером, а&nbsp;не&nbsp;после того, как оплатили</div></div>
-        <div class="ph"><div class="h">Понятно, кого проверять</div><div class="d">Видно, у&nbsp;каких дилеров нестыковок больше, есть с&nbsp;чего начинать аудит</div></div>
-        <div class="ph"><div class="h">Клиент возвращается реже</div><div class="d">Жалобы закрываются работами, которые их&nbsp;решают, это влияет на&nbsp;лояльность к&nbsp;бренду</div></div>
+      <div class="kicker reveal">Как это работает · схема</div>
+      <h1 class="reveal">Механизм сверяет наряд с&nbsp;вашим справочником-эталоном</h1>
+      <div class="schema reveal">
+        <div class="flow">
+          <div class="node"><div class="nh">Система клиента / DMS</div><div class="nd">источник нарядов и&nbsp;получатель результата</div></div>
+          <div class="arrow">→</div>
+          <div class="node accent"><div class="nh">AI-механизм проверки</div><div class="nd">сверяет жалобу, работы и&nbsp;запчасти между собой и&nbsp;с&nbsp;эталоном</div></div>
+          <div class="arrow">→</div>
+          <div class="node"><div class="nh">Вердикт в&nbsp;вашей системе</div><div class="nd">менеджер видит результат и&nbsp;даёт обратную связь</div></div>
+        </div>
+        <div class="feedwrap">
+          <div class="updown">&#8593;</div>
+          <div class="feedlabel">механизм обращается к&nbsp;двум контурам</div>
+          <div class="feeds">
+            <div class="node store"><div class="nh">Справочник / эталон</div><div class="nd">регламенты, нормативы, сервисные книжки - как должно быть. Контур у&nbsp;вас или у&nbsp;нас</div></div>
+            <div class="node"><div class="nh">LLM</div><div class="nd">анализ смысла наряда, локальная модель</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 8. Данные и безопасность -->
-  <section class="slide" data-i="8">
+  <!-- 8. Разграничение -->
+  <section class="slide">
+    <div class="content">
+      <div class="kicker reveal">Где наш слой</div>
+      <h1 class="reveal">Дополняем жёсткие правила, а&nbsp;не&nbsp;дублируем их</h1>
+      <div class="compare reveal">
+        <div class="ccol rules">
+          <div class="ch">Жёсткие правила - уже есть у&nbsp;дистрибьютора</div>
+          <ul>
+            <li>VIN: машина на&nbsp;гарантии, срок и&nbsp;пробег</li>
+            <li>Нормо-часы по&nbsp;заводскому справочнику (FRM)</li>
+            <li>Пересечения параллельных работ на&nbsp;одной машине</li>
+          </ul>
+          <div class="foot">Детерминированные проверки. AI здесь не&nbsp;нужен.</div>
+        </div>
+        <div class="ccol ours">
+          <div class="ch">AI-слой - там, где правила не&nbsp;справляются</div>
+          <ul>
+            <li>Смысл связки «жалоба ↔ работы»: закрыта&nbsp;ли реальная боль клиента</li>
+            <li>Некорректно оформленные жалобы</li>
+            <li>Нетипичные суммы и&nbsp;часы относительно похожих случаев</li>
+          </ul>
+          <div class="foot">Нужен анализ смысла и&nbsp;сравнение с&nbsp;похожими нарядами.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Какие проблемы бизнеса решает -->
+  <section class="slide">
+    <div class="content">
+      <div class="kicker reveal">Для кого и&nbsp;зачем</div>
+      <h1 class="reveal">Какие проблемы бизнеса это может решить</h1>
+      <div class="subtitle reveal" style="margin-top:24px;">Для департамента развития дилерской сети и&nbsp;послепродажного обслуживания: аудит стандартов и&nbsp;процессов, обучение дилеров, контроль качества сервиса и&nbsp;лояльности.</div>
+      <div class="grid2 reveal" style="margin-top:46px;">
+        <div class="ph"><div class="h">Контроль успевает за&nbsp;потоком</div><div class="d">Только подсвеченные наряды по&nbsp;всей сети, а&nbsp;не&nbsp;ручная выборка</div></div>
+        <div class="ph"><div class="h">Видно некорректно оформленные жалобы</div><div class="d">Где боль клиента записана так, что наряд ей&nbsp;не&nbsp;соответствует, это сигнал к&nbsp;стандартам и&nbsp;обучению</div></div>
+        <div class="ph"><div class="h">Понятно, кого проверять</div><div class="d">У&nbsp;каких дилеров нестыковок больше, вход для целевого аудита</div></div>
+        <div class="ph"><div class="h">Меньше формально закрытых жалоб</div><div class="d">Жалобы закрываются работами, которые их&nbsp;решают, это влияет на&nbsp;лояльность к&nbsp;бренду</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Данные и безопасность -->
+  <section class="slide">
     <div class="content">
       <div class="kicker reveal">Контур и&nbsp;данные</div>
       <h1 class="reveal">Данные и&nbsp;безопасность</h1>
@@ -326,8 +339,8 @@
     </div>
   </section>
 
-  <!-- 9. Что предлагаем попробовать -->
-  <section class="slide" data-i="9">
+  <!-- 11. Что предлагаем попробовать -->
+  <section class="slide">
     <div class="content">
       <div class="kicker reveal">Следующий шаг</div>
       <h1 class="reveal">Что предлагаем попробовать</h1>
@@ -344,8 +357,8 @@
     </div>
   </section>
 
-  <!-- 10. Почему мы -->
-  <section class="slide" data-i="10">
+  <!-- 12. Почему мы -->
+  <section class="slide">
     <div class="content">
       <div class="kicker reveal">Почему мы</div>
       <h1 class="reveal">Почему мы</h1>
@@ -360,16 +373,13 @@
 
 </div></div>
 
-<!-- chrome нанесём на каждый слайд через JS -->
 <script>
 const stage = document.getElementById('stage');
 const slides = [...document.querySelectorAll('.slide')];
 let cur = 0;
 
-// добавить прогресс-бар и нижний колонтитул на каждый слайд
 slides.forEach((s,i)=>{
-  const prog = document.createElement('div'); prog.className='progress';
-  s.appendChild(prog);
+  const prog = document.createElement('div'); prog.className='progress'; s.appendChild(prog);
   const bot = document.createElement('div'); bot.className='chrome bot';
   bot.innerHTML = `<span class="brand">QSOFT · AI-анализ заказ-нарядов</span><span>${String(i+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}</span>`;
   s.appendChild(bot);
@@ -392,15 +402,9 @@ document.addEventListener('keydown', e=>{
   if(e.key==='Home') show(0);
   if(e.key==='End') show(slides.length-1);
 });
-// клик по правой/левой половине
-document.addEventListener('click', e=>{
-  if(e.clientX > window.innerWidth/2) next(); else prev();
-});
+document.addEventListener('click', e=>{ if(e.clientX > window.innerWidth/2) next(); else prev(); });
 
-function scale(){
-  const s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
-  stage.style.transform = `scale(${s})`;
-}
+function scale(){ stage.style.transform = `scale(${Math.min(window.innerWidth/1920, window.innerHeight/1080)})`; }
 window.addEventListener('resize', scale);
 scale(); show(0);
 </script>
